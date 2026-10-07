@@ -208,10 +208,10 @@ plugins:
     options:
       provider: giscus
       options:
-        repo: TODO:username/repo-name
-        repoId: TODO:your-repo-id
+        repo: xandaworm/blog-discussion
+        repoId: R_kgDOVAMMJQ
         category: Announcements
-        categoryId: TODO:your-category-id
+        categoryId: DIC_kwDOVAMMJc4DHS7Y
         mapping: url
         strict: true
         reactionsEnabled: true
