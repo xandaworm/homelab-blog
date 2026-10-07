@@ -212,8 +212,8 @@ plugins:
         repoId: R_kgDOVAMMJQ
         category: Announcements
         categoryId: DIC_kwDOVAMMJc4DHS7Y
-        mapping: url
-        strict: true
+        mapping: pathname
+        strict: false
         reactionsEnabled: true
         inputPosition: bottom
         lightTheme: light
