@@ -211,7 +211,7 @@ plugins:
         repo: xandaworm/blog-discussion
         repoId: R_kgDOVAMMJQ
         category: Announcements
-        categoryId: DIC_kwDOVAMMJc4DHS7Y
+        categoryId: DIC_kwDOVAMMJc4DHS7X
         mapping: pathname
         strict: false
         reactionsEnabled: true
