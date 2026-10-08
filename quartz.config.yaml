@@ -234,7 +234,7 @@ plugins:
   - source: "@quartz-community/recent-notes"
     enabled: true
     options:
-      title: Recent Notes
+      title: Recent Posts
       limit: 5
       linkToMore: false
       showTags: true
