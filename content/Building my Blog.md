@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-13T23:05:57.232Z
+modified: 2026-10-13T23:49:06.683Z
 tags:
   - homelab
   - syncthing
@@ -15,16 +15,16 @@ tags:
 
 I created this blog with the intention of showing off my homelab and other tech projects, but the idea to create it came from an entirely unrelated problem.
 
-# The problem
+# The Problem
 
 In my free-time, I really enjoy playing card games, board games, and role-playing games with my friends and girlfriend. Every Sunday we all meet to play Dungeon Crawl Classics (DCC), a re-imagining of old-school Dungeons & Dragons with a modernized ruleset. I write and run our adventures, which has turned into a creative writing exercise for me, and I built my own fantasy world with politics, history, and characters. Because we only play on a weekly basis, sometimes missing a session due to scheduling conflicts, my friends are inclined to forget things that happen. Some of them take notes, but even then, not everything of importance gets written down. Since I run and write the adventures, I keep track of everything that goes on, which is in an [Obsidian](https://obsidian.md/) vault. I cannot share the full vault of notes with everyone, as it includes major game spoilers. It can also be inconvenient to search my notes for something specific that my friends want reminded of, interrupting the flow of the game. So I wanted to find a way to serve specific game notes to my friends that is easily searchable and always available.
 
-# The solution
+# The Solution
 
 I had a conversation with a friend from college about how he hosts a wiki for his homelab documentation and college notes. He mentioned using [Quartz](https://quartz.jzhao.xyz/) , a static site generator that converts Markdown. From there it clicked, I already use Obsidian to keep notes (which uses Markdown), why don't I just make a wiki for my players?
 [So I did](https://wiki.blueinblueeyes.org/) (it is a little barebones at the time of writing, I plan to add more) and I also made this blog too! How did I do it?
 
-# Choosing my tools
+# Choosing my Tools
 
 First, I chose what tools I would use. The first thing I wanted to do was find some way to build an ecosystem where all my Obsidian vaults can seamlessly sync such that I can access them from anywhere on any device. This was something I was meaning to do for a while, and building this drove that. To do this I chose [Syncthing](https://syncthing.net/) as my tool of choice. I considered other options, like Obsidian's own sync service, iCloud, OneDrive, but I did not choose these for two reasons: There was no point in paying for such a service when I can host it myself and store the folders on my NAS, and digital sovereignty. I also looked into other self-hosted options, but Syncthing has a large community, with much support, with built-in TLS encryption and authentication.
 
@@ -265,7 +265,7 @@ The fields for your repo id and category id will be generated on the giscus app 
 7\. Press **CTRL+X** | **Y**
 8\. Enter `npx quartz sync`
 
-## Configuring index.md and final touches
+## Configuring index.md and Final Touches
 
 `index.md` serves as the homepage to your Quartz site. When you go to build a Quartz site using the new content option, it will create one automatically for you. index.md can be edited in multiple ways. You can edit directly from your GitHub or cloned git repositories, (using `npx quartz sync` with the latter to push it), or copy it to your Obsidian vault and edit and publish it from there. Keep in mind `index.md` will always be your homepage. It is located under the `content` directory of your repository. Now that you have your site set up and running, you can use the myriad of [[#Sources]] provided to further customize and improve your site.
 
@@ -273,7 +273,7 @@ The fields for your repo id and category id will be generated on the giscus app 
 
 Below are some issues I ran into and how I fixed them. I will update these as more arise.
 
-## 404 Page and tag index under recent posts
+## 404 Page and Tag Index Under Recent Posts
 
 One of the default enabled plugins, recent-notes, will provide a feed of recent posts. On default, it shows the 5 most recently posted notes. Quartz generates a tag index and 404 page on build, which end up being included on the recent notes. Additionally, when new tags are used, new tag pages are created. Ultimately, I did not want these to show while I have less than 5 pages, and did not want to limit recent posts to less than 5.
 To fix the tag index and tag pages, I added `hideTagPages: true` and `hideFolderPages: true` to my `quartz.config.yaml` under the recent notes plugin. Here is the resulting plugin setup:
@@ -320,7 +320,7 @@ Your resulting CSS should look like this:
 
 To explain the CSS, the `.recent-notes` addresses the recent notes plugin. `li` addresses list items within the recent notes plugin, each post in recent notes is a list item. `:has()` picks something from the list items, regarding what is inside the parenthesis. `a[href$="404"]` is pointing to a link (`a`) in a list item that references (`href`) a page that ends with (`$=`) a 404 (`"404"`). `display: none;` is saying to not display the 404 page that was chosen.  With this, your 404 page will still exist and be accessible when needed, but will no longer be displayed under your recent notes.
 
-## Mobile view
+## Mobile View
 
 While I am still trying to figure out how to optimize the mobile view, I found one of the biggest culprits of the mess to be the recent notes plugin. In order to still have it display on desktop, but exclude from mobile, I added `display: desktop-only` to my `quartz.config.yaml` under the recent notes plugin in its `layout:` section. The resulting plugin configuration looks like this:
 
