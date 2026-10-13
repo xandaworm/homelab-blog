@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-13T16:57:27.999Z
+modified: 2026-10-13T17:02:03.398Z
 tags:
   - homelab
   - syncthing
@@ -44,25 +44,27 @@ The first task to complete was the deployment of Syncthing on my server. This en
 1. Created a folder on my NAS to store my Obsidian vaults
 2. Deployed Syncthing using the following docker compose
 
-`---`
-`services:`
-`syncthing:`
-`image: lscr.io/linuxserver/syncthing:latest`
-`container_name: syncthing`
-`hostname: syncthing #optional`
-`environment:`
-`- PUID=1000`
-`- PGID=1000`
-`- TZ=Etc/UTC`
-`volumes:`
-`- ./config:/config`
-`- /your/obsidian/directory/path/here:/obsidian`
-`ports:`
-`- 8384:8384`
-`- 22000:22000/tcp`
-`- 22000:22000/udp`
-`- 21027:21027/udp`
-`restart: unless-stopped`
+```
+---
+services:
+  syncthing:
+    image: lscr.io/linuxserver/syncthing:latest
+    container_name: syncthing
+    hostname: syncthing #optional
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ./config:/config
+      - /your/obsidian/directory/path/here:/obsidian
+    ports:
+      - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+    restart: unless-stopped
+```
 
 3. Navigated to `<docker-host-ip>:8384` in a web browser
 4. Clicked **Add Folder**
@@ -153,7 +155,7 @@ Lastly, we want to push our built quartz site to GitHub. Enter `npx quartz sync 
 
 Now that you have a Quartz website established inside a GitHub repository, you'll want to set up a method to push Obsidian notes directly to your repository.  [Quartz Syncer](https://community.obsidian.md/plugins/quartz-syncer), a plugin for Obsidian, does just that. If you have Syncthing set up, note that Obsidian stores plugins and plugin information in each vault, so you will only have to configure this once. In order to configure Quartz Syncer, recreate what I did below.
 
-1. In Obsidian, open my working vault.
+1. In Obsidian, opened my working vault.
 2. Clicked the **Settings Gear** | **Community Plugins**
 3. If you have not done so already, disable restricted mode by clicking **Exit restricted mode**
 4. Clicked **Browse**
@@ -239,24 +241,29 @@ Now that you have GitHub discussions enabled with giscus access, you will need t
 4. Entered `nano quartz.config.yaml`
 5. Found the comments plugin under  ` - source: "@quartz-community/comments"`
 6. Changed the following under the plugin, according to the giscus app page output:
-   `- source: "@quartz-community/comments"`
-   `enabled: true`
-   `options:`
-   `provider: giscus`
-   `options:`
-   `repo: <your-discussion-repo>
-        `repoId: <your-repo-id>
-   `category: Announcements`
-   `categoryId: <your-category-id>
-        `mapping: pathname`
-        `strict: false`
-        `reactionsEnabled: true`
-        `inputPosition: bottom`
-        `lightTheme: light`
-        `darkTheme: dark`
-        `lang: en`The fields for your repo id and category id will be generated on the giscus app page under *Enable giscus*. Use the fields`data-repo-id`and`data-category-id\` for those fields respectively.
-7. Pressed **CTRL+X** | **Y**
-8. Entered `npx quartz sync`
+
+```
+- source: "@quartz-community/comments"
+    enabled: true
+    options:
+      provider: giscus
+      options:
+        repo: <your-discussion-repo>
+        repoId: <your-repo-id>
+        category: Announcements
+        categoryId: <your-category-id>
+        mapping: pathname
+        strict: false
+        reactionsEnabled: true
+        inputPosition: bottom
+        lightTheme: light
+        darkTheme: dark
+        lang: en
+```
+
+The fields for your repo id and category id will be generated on the giscus app page under _Enable giscus_. Use the fields `data-repo-id` and `data-category-id` for those fields respectively.
+7\. Pressed **CTRL+X** | **Y**
+8\. Entered `npx quartz sync`
 
 ## Configuring index.md and final touches
 
@@ -270,15 +277,19 @@ Below are some issues I ran into and how I fixed them. I will update these as mo
 
 One of the default enabled plugins, recent-notes, will provide a feed of recent posts. On default, it shows the 5 most recently posted notes. Quartz generates a tag index and 404 page on build, which end up being included on the recent notes. Additionally, when new tags are used, new tag pages are created. Ultimately, I did not want these to show while I have less than 5 pages, and did not want to limit recent posts to less than 5.
 To fix the tag index and tag pages, I added `hideTagPages: true` and `hideFolderPages: true` to my `quartz.config.yaml` under the recent notes plugin. Here is the resulting plugin setup:
-`- source: "@quartz-community/recent-notes"`
-`enabled: true`
-`options:`
-`title: Recent Posts`
-`limit: 5`
-`linkToMore: false`
-`showTags: true`
-`hideTagPages: true`
-`hideFolderPages: true`
+
+```
+- source: "@quartz-community/recent-notes"
+    enabled: true
+    options:
+      title: Recent Posts
+      limit: 5
+      linkToMore: false
+      showTags: true
+      hideTagPages: true
+      hideFolderPages: true
+```
+
 Make sure to save and `npx quartz sync` to push your changes.
 
 To fix the 404 page, there is no built-in exclude setting in the plugin, so I had to do some custom CSS. On your working Linux CLI:
@@ -287,18 +298,22 @@ To fix the 404 page, there is no built-in exclude setting in the plugin, so I ha
 2. Entered `nano quartz/styles/custom.scss`
 3. Added the following to my config:
 
-`.recent-notes li:has(a[href$="404"]) {`
-`display: none;`
-`}`
+```
+.recent-notes li:has(a[href$="404"]) {
+  display: none;
+}
+```
 
 Your resulting CSS should look like this:
 
-`@use "./variables.scss" as *;`
+```
+@use "./variables.scss" as *;
 
-`// put your custom CSS here!`
-`.recent-notes li:has(a[href$="404"]) {`
-`display: none;`
-`}`
+// put your custom CSS here!
+.recent-notes li:has(a[href$="404"]) {
+  display: none;
+}
+```
 
 4. Pressed **CTRL+X** | **Y**
 5. Entered `npx quartz sync`
@@ -309,25 +324,27 @@ To explain the CSS, the `.recent-notes` addresses the recent notes plugin. `li` 
 
 While I am still trying to figure out how to optimize the mobile view, I found one of the biggest culprits of the mess to be the recent notes plugin. In order to still have it display on desktop, but exclude from mobile, I added `display: desktop-only` to my `quartz.config.yaml` under the recent notes plugin in its `layout:` section. The resulting plugin configuration looks like this:
 
-`- source: "@quartz-community/recent-notes"`
-`enabled: true`
-`options:`
-`title: Recent Posts`
-`limit: 5`
-`linkToMore: false`
-`showTags: true`
-`hideTagPages: true`
-`hideFolderPages: true`
-`layout:`
-`position: left`
-`priority: 25`
-`display: desktop-only`
+```
+- source: "@quartz-community/recent-notes"
+    enabled: true
+    options:
+      title: Recent Posts
+      limit: 5
+      linkToMore: false
+      showTags: true
+      hideTagPages: true
+      hideFolderPages: true
+    layout:
+      position: left
+      priority: 25
+      display: desktop-only
+```
 
 # Sources
 
-[Useful Video Tutorial](https://www.youtube.com/watch?v=6s6DT1yN4dw)
-[Quartz Documentation](https://quartz.jzhao.xyz/)
-[Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
-[Syncthing Getting Started Documentation](https://docs.syncthing.net/intro/getting-started.htmlhttps://docs.syncthing.net/intro/getting-started.html)
-[Quartz Syncer Documentation](https://saberzero1.github.io/quartz-syncer-docs/)
-[Giscus Repository](https://github.com/giscus/giscus)
+- [Useful Video Tutorial](https://www.youtube.com/watch?v=6s6DT1yN4dw)
+- [Quartz Documentation](https://quartz.jzhao.xyz/)
+- [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
+- [Syncthing Getting Started Documentation](https://docs.syncthing.net/intro/getting-started.htmlhttps://docs.syncthing.net/intro/getting-started.html)
+- [Quartz Syncer Documentation](https://saberzero1.github.io/quartz-syncer-docs/)
+- [Giscus Repository](https://github.com/giscus/giscus)
