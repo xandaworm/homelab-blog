@@ -41,6 +41,11 @@ configuration:
         highlight: rgba(143, 159, 169, 0.15)
         textHighlight: "#b3aa0288"
 plugins:
+  - source: "@quartz-themes/core"
+    enabled: true
+    options:
+      theme: "pine-forest-berry"
+      mode: "both"
   - source: "@quartz-community/created-modified-date"
     enabled: true
     options:
