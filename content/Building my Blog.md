@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-13T22:43:42.238Z
+modified: 2026-10-13T23:05:57.232Z
 tags:
   - homelab
   - syncthing
@@ -145,7 +145,7 @@ You should receive some sort of success message. Run `node -v`and `npm -v` again
 9. Select shortest for resolving internal links (This does not show if using the obsidian or TTRPG template)
 10. Enter `npx quartz plugin install --from-config`
 11. Enter `npx quartz plugin install --latest`
-12. Enter `npx quartz build --serve --port:<your-port>`
+12. Enter `npx quartz build --serve --port <your-port>`
 
 If successful, you should be able to view a preview build of your website. Navigate to `<host-ip>:<your-port>` in a web browser. When you are ready to exit the preview build, press **CTRL+C** in your Linux CLI.
 
