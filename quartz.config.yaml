@@ -242,7 +242,7 @@ plugins:
       title: Recent Posts
       limit: 5
       linkToMore: false
-      showTags: true
+      showTags: false
       hideTagPages: true
       hideFolderPages: true
     layout:
