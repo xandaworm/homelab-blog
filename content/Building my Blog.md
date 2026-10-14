@@ -2,13 +2,14 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-14T19:00:42.544Z
+modified: 2026-10-14T19:04:27.918Z
 tags:
   - homelab
   - syncthing
   - quartz
   - github
   - cloudflare
+  - obsidian
 ---
 
 **A guide for seamless Obsidian sync using Syncthing and serving notes over the web via Quartz, Quartz Syncer, and Cloudflare Pages**
