@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-14T18:59:01.633Z
+modified: 2026-10-14T19:00:42.544Z
 tags:
   - homelab
   - syncthing
@@ -41,8 +41,8 @@ Below is a step-by-step of how I configured my platform. Refer to these steps as
 
 The first task to complete was the deployment of Syncthing on my server. This ensures that there was an always online peer (as Syncthing works in a peer-to-peer manner) for my Obsidian vaults to sync to. Note that Syncthing is optional but it provides an additional layer of data redundancy and the ability to work on my blog from multiple devices seamlessly. I used docker for my server, but you can install and configure Syncthing in your own way.
 
-1. Create a folder on your NAS to store my Obsidian vaults
-2. Deploy Syncthing using the following docker compose
+1. Create a folder on your NAS or storage solution to store your Obsidian vaults
+2. Deploy Syncthing with the following docker compose
 
 ```
 ---
