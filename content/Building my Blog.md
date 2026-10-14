@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-14T00:00:03.362Z
+modified: 2026-10-14T00:02:38.864Z
 tags:
   - homelab
   - syncthing
@@ -262,9 +262,10 @@ Now that you have GitHub discussions enabled with giscus access, you will need t
 ```
 
 The fields for your repo id and category id will be generated on the giscus app page under _Enable giscus_. Use the fields `data-repo-id` and `data-category-id` for those fields respectively.
-7\. Press **CTRL+X** | **Y**
-8\. If you are adding the comments plugin for the first time (if it did not already appear in your `quartz.config.yaml`), enter `npx quartz plugin install --from-config`
-9\. Enter `npx quartz sync`
+
+7. Press **CTRL+X** | **Y**
+8. If you are adding the comments plugin for the first time (if it did not already appear in your `quartz.config.yaml`), enter `npx quartz plugin install --from-config`
+9. Enter `npx quartz sync`
 
 ## Configuring index.md and Final Touches
 
