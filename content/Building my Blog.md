@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-14T19:04:27.918Z
+modified: 2026-10-14T19:05:54.301Z
 tags:
   - homelab
   - syncthing
@@ -71,7 +71,7 @@ services:
 4. Click **Add Folder**
 5. Enter `/obsidian` under _Folder Path_
 6. Enter `Obsidian` under _Folder Name_
-7. OPTIONAL: Click the **File Versioning** tab and selected _Staggered File Versioning_
+7. OPTIONAL: Click the **File Versioning** tab and select _Staggered File Versioning_
    1. This adds versioning in the following way: Files are moved to date stamped versions in a .stversions directory when replaced or deleted by Syncthing. Versions are automatically deleted if they are older than the maximum age or exceed the number of files allowed in an interval. The following intervals are used: for the first hour a version is kept every 30 seconds, for the first day a version is kept every hour, for the first 30 days a version is kept every day, until the maximum age a version is kept every week.
 8. Click **Save**
 
