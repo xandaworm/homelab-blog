@@ -2,7 +2,7 @@
 publish: true
 title: Building my Blog
 created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-13T23:49:06.683Z
+modified: 2026-10-14T00:00:03.362Z
 tags:
   - homelab
   - syncthing
@@ -239,7 +239,7 @@ Now that you have GitHub discussions enabled with giscus access, you will need t
 2. Select _Announcements_ under _Discussion Category_
 3. On your working Linux CLI, navigate to the Quartz repository
 4. Enter `nano quartz.config.yaml`
-5. Find the comments plugin under  ` - source: "@quartz-community/comments"`
+5. Find the comments plugin under  ` - source: "@quartz-community/comments"`, or add it under your plugins section
 6. Change the following under the plugin, according to the giscus app page output:
 
 ```
@@ -263,7 +263,8 @@ Now that you have GitHub discussions enabled with giscus access, you will need t
 
 The fields for your repo id and category id will be generated on the giscus app page under _Enable giscus_. Use the fields `data-repo-id` and `data-category-id` for those fields respectively.
 7\. Press **CTRL+X** | **Y**
-8\. Enter `npx quartz sync`
+8\. If you are adding the comments plugin for the first time (if it did not already appear in your `quartz.config.yaml`), enter `npx quartz plugin install --from-config`
+9\. Enter `npx quartz sync`
 
 ## Configuring index.md and Final Touches
 
