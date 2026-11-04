@@ -1,8 +1,8 @@
 ---
 publish: true
 title: Building my Blog
-created: 2026-10-08T21:54:46.085Z
-modified: 2026-10-14T19:05:54.301Z
+created: 2026-10-28T23:24:46.247Z
+modified: 2026-10-29T00:00:18.262Z
 tags:
   - homelab
   - syncthing
@@ -43,7 +43,7 @@ Below is a step-by-step of how I configured my platform. Refer to these steps as
 The first task to complete was the deployment of Syncthing on my server. This ensures that there was an always online peer (as Syncthing works in a peer-to-peer manner) for my Obsidian vaults to sync to. Note that Syncthing is optional but it provides an additional layer of data redundancy and the ability to work on my blog from multiple devices seamlessly. I used docker for my server, but you can install and configure Syncthing in your own way.
 
 1. Create a folder on your NAS or storage solution to store your Obsidian vaults
-2. Deploy Syncthing with the following docker compose
+2. Deploy Syncthing with the following docker compose (`docker compose up -d`)
 
 ```
 ---
@@ -70,7 +70,7 @@ services:
 3. Navigate to `<docker-host-ip>:8384` in a web browser
 4. Click **Add Folder**
 5. Enter `/obsidian` under _Folder Path_
-6. Enter `Obsidian` under _Folder Name_
+6. Enter `Obsidian` under _Folder Label_
 7. OPTIONAL: Click the **File Versioning** tab and select _Staggered File Versioning_
    1. This adds versioning in the following way: Files are moved to date stamped versions in a .stversions directory when replaced or deleted by Syncthing. Versions are automatically deleted if they are older than the maximum age or exceed the number of files allowed in an interval. The following intervals are used: for the first hour a version is kept every 30 seconds, for the first day a version is kept every hour, for the first 30 days a version is kept every day, until the maximum age a version is kept every week.
 8. Click **Save**
