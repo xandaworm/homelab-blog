@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-11T18:16:21.463Z
-modified: 2026-11-12T00:33:06.479Z
+modified: 2026-11-12T00:34:55.771Z
 tags:
   - rebuild
   - homelab
@@ -11,7 +11,7 @@ tags:
 
 **A guide for the deployment and configuration of a virtualized OPNsense firewall for segmentation with Proxmox behind a double NAT.**
 
-This is the second part of my homelab "rebuild" project, [[Homelab Infrastrcture Rebuild Overview]]
+This is the second part of my homelab "rebuild" project, [[Homelab Infrastrcture Rebuild Overview]].
 In my homelab configuration, my services are behind a double NAT, meaning that there is another router in front of OPNsense. If using OPNsense as your router, some configurations may differ. Keep in mind that the network behind your router, is the WAN side in the context of OPNsense.
 
 # Virtual Switch Creation in Proxmox
