@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-03T22:52:42.460Z
-modified: 2026-11-12T00:28:08.024Z
+modified: 2026-11-12T00:43:00.656Z
 tags:
   - homelab
   - rebuild
@@ -11,7 +11,7 @@ tags:
 ---
 
 **A guide for installing, configuring, and migrating to Proxmox**
-This is the first part of my homelab "rebuild" project, [[Homelab Infrastrcture Rebuild Overview]]
+This is the first part of my homelab "rebuild" project, [[Homelab Infrastructure Rebuild Overview]]
 
 # Migration
 
