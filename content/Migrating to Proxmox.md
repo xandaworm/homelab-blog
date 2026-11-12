@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-03T22:52:42.460Z
-modified: 2026-11-05T22:55:41.906Z
+modified: 2026-11-12T00:28:08.024Z
 tags:
   - homelab
   - rebuild
@@ -11,6 +11,7 @@ tags:
 ---
 
 **A guide for installing, configuring, and migrating to Proxmox**
+This is the first part of my homelab "rebuild" project, [[Homelab Infrastrcture Rebuild Overview]]
 
 # Migration
 
@@ -189,4 +190,4 @@ You should now have a complete image of your machine on your chosen storage medi
 
 # Closing Notes
 
-I intentionally did not include VM deployment. This is because we want to deploy VMs behind our OPNsense firewall, which will also be a VM. My next guide will discuss VM deployment and OPNsense configuration, so keep an eye out for that.
+I intentionally did not include VM deployment. This is because we want to deploy VMs behind our OPNsense firewall, which will also be a VM. See [[OPNsense Firewall Deployment, Configuration, and Segmentation with Proxmox]] for the deployment of an OPNsense firewall in your Proxmox environment.
