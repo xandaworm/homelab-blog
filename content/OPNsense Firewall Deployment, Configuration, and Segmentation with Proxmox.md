@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-11T18:16:21.463Z
-modified: 2026-11-12T00:31:41.955Z
+modified: 2026-11-12T00:33:06.479Z
 tags:
   - rebuild
   - homelab
@@ -188,7 +188,8 @@ Now you can access OPNsense from a WAN side device. To finish configuration of O
 | Automatic DHCP/DNS Registration | No (Probably Yes if not using a double NAT)                    |                     |
 | Optimize for IPsec              | No                                                             |                     |
 When prompted to set an initial password, leave it blank as we already set one when installing OPNsense.
-6\. Click **Apply**
+
+6. Click **Apply**
 
 In the context of a double NAT, while the Block RFC1918 Private Networks rule stops private addresses from being dropped, the default state of your WAN side is to deny all incoming traffic, you need to create a temporary firewall rule to allow incoming traffic from the device you are using to configure OPNsense.
 The reason this is temporary is that we are going to create a VLAN specifically for management, which will be accessible from a VPN or trusted devices on their own VLAN. Proxmox and OPNsense will only be manageable from those connections, as they will have their management interfaces moved to the management VLAN. We will also further segment our external services into its own VLAN and machine, a DMZ, and our internal services into its own VLAN and machine. These will also only be manageable from the VPN or trusted devices.
