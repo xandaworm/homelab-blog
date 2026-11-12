@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-11T18:16:21.463Z
-modified: 2026-11-12T00:28:15.968Z
+modified: 2026-11-12T00:31:41.955Z
 tags:
   - rebuild
   - homelab
@@ -88,7 +88,8 @@ Now you'll need to add your virtual trunked switch to the VM.
 | Firewall    | No                                   |
 | Model       | VirtIO                               |
 | MAC Address | Leave blank                          |
-4\. Click **Add**
+
+4. Click **Add**
 
 # OPNsense Installation
 
@@ -254,8 +255,9 @@ Lastly, we need to configure our VLAN network interfaces.
 | INTERNAL   | Yes    | Yes  | INTERNAL    | No                     | No                   | Static IPv4             | None                    | Leave blank | No               | Leave blank | Leave blank | No                     | 10.0.30.1/24 | Disabled           |
 | DMZ        | Yes    | Yes  | DMZ         | No                     | No                   | Static IPv4             | None                    | Leave blank | No               | Leave blank | Leave blank | No                     | 10.0.40.1/24 | Disabled           |
 | STORAGE    | Yes    | Yes  | STORAGE     | No                     | No                   | Static IPv4             | None                    | Leave blank | No               | Leave blank | Leave blank | No                     | 10.0.50.1/24 | Disabled           |
-3\. Click **Save** after each configuration
-4\. Click **Apply Changes**
+
+3. Click **Save** after each configuration
+4. Click **Apply Changes**
 
 # Closing Notes
 
