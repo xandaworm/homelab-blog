@@ -1,13 +1,11 @@
 ---
 publish: true
 created: 2026-11-03T22:52:42.460Z
-modified: 2026-11-12T00:43:00.656Z
+modified: 2026-11-23T23:09:54.960Z
 tags:
   - homelab
   - rebuild
   - proxmox
-  - ventoy
-  - clonezilla
 ---
 
 **A guide for installing, configuring, and migrating to Proxmox**
@@ -35,7 +33,7 @@ docker stop $(docker ps -q)
 
 The last thing to do is to backup your volumes and compose files to another storage solution, I used my NAS but a USB or any removable storage media works as well. Keep the inventory file as well.
 
-It is also best practice to create a whole system iamge for backup, just in case. I recommend [Clonezilla](https://clonezilla.org/). See the section on [[#Ventoy and Clonezilla]] for more.
+It is also best practice to create a whole system iamge for backup, just in case. I recommend [Clonezilla](https://clonezilla.org/). See the guide on [[Ventoy and Clonezilla]] for more.
 
 # Preparing for a Proxmox Install
 
@@ -46,7 +44,7 @@ To install Proxmox, you'll need the following things:
 - Check that your motherboard's BIOS settings are correctly. You want to make sure IOMMU is enabled on your device. Different hardware sometimes has different names for this technology. Intel chipsets use VT-d, AMD chipsets use AMD-Vi, and ARM uses SMMU. It may be best to look up best settings for your specific hardware for Proxmox.
 - An 8GB minimum USB drive.
 - A reserved IP address for your Proxmox instance. You'll need to explore how to set this up for your home router.
-- Create a bootable USB. For this I used [balenaEtcher](https://etcher.balena.io/). See the section on [[#Ventoy and Clonezilla]] for reasoning as to why I did not use Ventoy for Proxmox installation. To create a bootable USB with balenaEtcher:
+- Create a bootable USB. For this I used [balenaEtcher](https://etcher.balena.io/). I would advise against deploying Proxmox with Ventoy however, as I personally had errors with it, and the internet also seems to as well. Save yourself the headache, and don't use Ventoy to install it.
 
 1. Install [balenaEtcher](https://etcher.balena.io/) on a personal device.
 2. Download the [latest Proxmox Virtual Environment installer ISO](https://www.proxmox.com/en/downloads/proxmox-virtual-environment). Make sure to grab the right one, if on ARM get the ARM ISO, otherwise get the standard ISO.
@@ -115,78 +113,6 @@ To configure Proxmox, you'll need to use a seperate device to access its managem
 16. Restart your server when the updates are complete. Click **Reboot | Yes**
 
 Now we have a fully up-to-date instance of Proxmox with an update repository. To update your Proxmox, which you should do regularly, repeat steps 12-16.
-
-# Ventoy and Clonezilla
-
-[Ventoy](https://www.ventoy.net/en/index.html) is an amazing tool to create a bootable USB drive with multiple ISO files, rather than having a dedicated drive for each of your ISOs. I recommend creating a dedicated Ventoy USB.
-
-I would advise against deploying Proxmox with Ventoy however, as I personally had errors with it, and the internet also seems to as well. Save yourself the headache, and don't use Ventoy to install it.
-
-Ventoy is perfect for [Clonezilla](https://clonezilla.org/downloads.php), though since it is an ISO, and I would recommend using them together. Alternatively, you can flash Clonezilla to a drive with balenaEtcher, just as we did for Proxmox. To use Ventoy, you'll need to [download it](https://www.ventoy.net/en/download.html). Once you've unzipped the Ventoy file:
-
-1. Open Ventoy2Disk.exe
-2. Select `<your-dedicated-ventoy-usb>` in _Device_
-3. Click **Install**
-
-You should now have a USB device called Ventoy. Go ahead and move any ISOs you want on your Ventoy device to that device, including the [Clonezilla ISO](https://clonezilla.org/downloads.php).
-
-To use Clonezilla, boot using your Ventoy device (Steps 1-3 of [[#Proxmox Installation and Basic Configuration]], using your Ventoy device instead). Make sure you have a storage medium prepared for your backup image, it can be a secondary drive, a removable storage medium, NAS, or another computer. Once you have booted with Ventoy:
-
-1. Using arrow keys, select `<your-clonezilla-iso>`
-2. Press **ENTER**
-3. Select _Boot in normal mode_
-4. Press **ENTER**
-5. Select _Clonezilla live (VGA 800x600)_
-6. Press **ENTER**
-7. Select `<your-preferred-language>`
-8. Press **ENTER**
-9. Select `<your-keyboard-layout>`
-10. Press **ENTER**
-11. Select _Start\_Clonezilla_
-12. Press **ENTER**
-13. Select _device-image_
-14. Press **ENTER**
-15. Select `<your-preferred-storage-medium>`
-    1. If you are using a NAS, choose _nfs\_server_ or _samba\_server_ for NFS or SMB respectively.
-    2. If you are using a drive in your machine, or removeable media, choose _local\_dev_
-    3. If you want to store it on another machine (which can be a NAS), use _ssh\_server_
-16. Press **ENTER**
-    1. At this point, steps may vary depending on your storage medium. Clonezilla will tell you what it needs based on your selection.
-    2. If using USB to store your image, you'll want to insert it into the machine now. Press **CTRL+C** once it is recognized in the scan. Then select it from the partition list
-    3. If using a network protocol (NFS, SMB, SSH) to store your image, Clonezilla will walk you through the necessary inputs to connect to these protocols
-    4. If having trouble, refer to [these docs](https://clonezilla.org//fine-print-live-doc.php?path=clonezilla-live/doc/01_Save_disk_image)
-    5. Start on step 17 once you get to a screen that says _Choose the mode to run the following wizard about advanced parameters_
-17. Select _Beginner_
-18. Press **ENTER**
-19. Select _savedisk_
-20. Press **ENTER**
-21. Type in `<a-name-for-your-image>`
-22. Press **ENTER**
-23. Select `<your-disk-to-be-imaged>` (likely _sda_) and press **SPACE**
-24. Press **ENTER**
-25. Select _-z1p_
-    1. Can use _-z9p_ if you have limited storage or a preference for it
-26. Press **ENTER**
-27. Select -_sfsck_
-    1. This is usually fine, but if you believe the source filesystem is unhealthy, select _-fsck_ instead
-28. Press **ENTER**
-29. Select _Yes, check the saved image_
-30. Press **ENTER**
-31. Select _-senc_
-    1. You may also select _-enc_ if you want to encrypt the image. Note that this will attach a passphrase to the image, and if forgotten, it will not be recoverable.
-    2. You will be prompted for a password, if chosen, so do that before step 33.
-32. Press **ENTER**
-33. Select _-p choose_
-34. Press **ENTER**
-35. Press **ENTER**
-36. Type `y`
-37. Press **ENTER**
-38. After Clonezilla completes, ensure you received a success message along the lines _All the images of partition or LV devcies in this image were checked and they are restorable:_ `<your-image-name>`
-39. Press **ENTER**
-40. Select _reboot_ or _poweroff_, depending on what you want to do
-41. Press **ENTER**
-
-You should now have a complete image of your machine on your chosen storage media device. To restore it, repeat steps 1-18, selecting your image directory on your storage media device. Then, instead of selecting _savedisk_, you'll want to use _restoredisk_. Clonezilla will then guide you through the restoration process. Let me know in comments if you would like to see a restoration guide.
 
 # Closing Notes
 
