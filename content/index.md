@@ -2,7 +2,7 @@
 publish: true
 title: Welcome!
 created: 2026-10-28T23:24:19.526Z
-modified: 2026-11-23T21:35:12.618Z
+modified: 2026-11-23T22:54:30.773Z
 ---
 
 Welcome to my blog! Here I'll be posting notes from building, breaking, and fixing my homelab along with other technical projects: video game console repair and restoration, tinkering, IoT, study, and more.
@@ -32,10 +32,10 @@ Welcome to my blog! Here I'll be posting notes from building, breaking, and fixi
 - [Traefik](https://traefik.io/traefik) - Reverse proxy that puts my internal services behind subdomains, with HTTPS from a Let's Encrypt wildcard certificate
 - [Let's Encrypt](https://letsencrypt.org/) - Wildcard TLS certificate for internal services, issued through a Cloudflare DNS challenge with automatic renewal by Traefik
 - [Cloudflare](https://www.cloudflare.com/) - Primary platform for deploying external services
-  - DNS
-  - DDNS
-  - Tunnel
-  - Proxy
+  - DNS - Authoritative DNS for my domain, blueinblueeyes.org, and handles the DNS challlenge for Let's Encrypt
+  - DDNS - Keeps the Wireguard endpoint pointed at my home IP
+  - Tunnel - Allows me to host services from my DMZ without opening inbound ports
+  - Proxy - Provides DDoS protection and hides my home IP for public services
 - [Gluetun](https://github.com/passteque/gluetun) - VPN routing for containers
 
 #### Identity & Secrets
