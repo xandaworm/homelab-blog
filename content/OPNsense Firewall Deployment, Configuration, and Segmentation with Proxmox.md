@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-11T18:16:21.463Z
-modified: 2026-11-12T00:43:00.673Z
+modified: 2026-11-24T20:20:54.936Z
 tags:
   - rebuild
   - homelab
@@ -41,37 +41,39 @@ Now you can deploy your OPNsense VM:
 1. Click **Create VM**
 2. Configure to the table:
 
-| Option                       | Setting               | Section |
-| ---------------------------- | --------------------- | ------- |
-| Node                         | `<your-proxmox-node>` | General |
-| VM ID                        | 100                   |         |
-| Name                         | opnsense              |         |
-| Use CD/DVD disc image file   | Yes                   | OS      |
-| Storage                      | local                 |         |
-| ISO image                    | `<your-opnsense-iso>` |         |
-| Guest OS Type                | Other                 |         |
-| Graphic card                 | Default               | System  |
-| Machine                      | q35                   |         |
-| BIOS                         | SeaBIOS               |         |
-| SCSI controller              | VirtIO SCSI Single    |         |
-| Qemu Agent                   | Yes                   |         |
-| Add TPM                      | No                    |         |
-| Bus/Device                   | SCSI                  | Disks   |
-| Storage                      | local-lvm             |         |
-| Disk size                    | 32 GB                 |         |
-| Cache                        | Default               |         |
-| Discard                      | Yes                   |         |
-| IO thread                    | Yes                   |         |
-| Sockets                      | 1                     | CPU     |
-| Cores                        | 2                     |         |
-| Type                         | host                  |         |
-| Memory                       | 4096 MB               | Memory  |
-| Ballooning Device (Advanced) | No                    |         |
-| Bridge                       | vmbr0                 | Network |
-| VLAN Tag                     | Leave blank           |         |
-| Firewall                     | No                    |         |
-| Model                        | VirtIO                |         |
-| MAC Address                  | Leave blank           |         |
+| Option                          | Setting               | Section | Note                                                                                                                 |
+| ------------------------------- | --------------------- | ------- | -------------------------------------------------------------------------------------------------------------------- |
+| Node                            | `<your-proxmox-node>` | General |                                                                                                                      |
+| VM ID                           | 100                   |         |                                                                                                                      |
+| Name                            | opnsense              |         |                                                                                                                      |
+| Start at boot (Advanced)        | Yes                   |         | Since this is the router, you definitely want this to start at boot                                                  |
+| Start/Shutdown order (Advanced) | 1                     |         | You also want this to be the first VM to start, since it is the router and network services will not work without it |
+| Use CD/DVD disc image file      | Yes                   | OS      |                                                                                                                      |
+| Storage                         | local                 |         |                                                                                                                      |
+| ISO image                       | `<your-opnsense-iso>` |         |                                                                                                                      |
+| Guest OS Type                   | Other                 |         |                                                                                                                      |
+| Graphic card                    | Default               | System  |                                                                                                                      |
+| Machine                         | q35                   |         |                                                                                                                      |
+| BIOS                            | SeaBIOS               |         |                                                                                                                      |
+| SCSI controller                 | VirtIO SCSI Single    |         |                                                                                                                      |
+| Qemu Agent                      | Yes                   |         | Optional but highly recommended agent for Proxmox, see [[#Qemu Agent Installation]]                                  |
+| Add TPM                         | No                    |         |                                                                                                                      |
+| Bus/Device                      | SCSI                  | Disks   |                                                                                                                      |
+| Storage                         | local-lvm             |         |                                                                                                                      |
+| Disk size                       | 32 GB                 |         |                                                                                                                      |
+| Cache                           | Default               |         |                                                                                                                      |
+| Discard                         | Yes                   |         |                                                                                                                      |
+| IO thread                       | Yes                   |         |                                                                                                                      |
+| Sockets                         | 1                     | CPU     |                                                                                                                      |
+| Cores                           | 2                     |         |                                                                                                                      |
+| Type                            | host                  |         |                                                                                                                      |
+| Memory                          | 4096 MB               | Memory  |                                                                                                                      |
+| Ballooning Device (Advanced)    | No                    |         |                                                                                                                      |
+| Bridge                          | vmbr0                 | Network |                                                                                                                      |
+| VLAN Tag                        | Leave blank           |         |                                                                                                                      |
+| Firewall                        | No                    |         |                                                                                                                      |
+| Model                           | VirtIO                |         |                                                                                                                      |
+| MAC Address                     | Leave blank           |         |                                                                                                                      |
 
 3. Click **Finish**
 
@@ -259,6 +261,26 @@ Lastly, we need to configure our VLAN network interfaces.
 
 3. Click **Save** after each configuration
 4. Click **Apply Changes**
+
+# Qemu Guest Agent Installation
+
+Qemu Agent is a daemon that you can install on your Proxmox VMs. It helps to properly shutdown your VM and properly freeze the filesystem when backing up or taking snapshots. It also provides some monitoring insights, like IP address info from the Proxmox management GUI. To install and configure this on OPNsense, you'll first want to make sure your OPNsense is up to date. Navigate to your OPNsense management GUI:
+
+1. Navigate to System | Firmware | Status
+2. Click **Check for updates**
+3. In System | Firmware | Updates, scroll down and click **Update** | **OK**
+
+After the reboot has occurred and your OPNsense is up-to-date and back online, you may install the qemu guest agent:
+
+1. Navigate to System | Firmware | Plugins
+2. Type `qemu` in the _Name_ text box
+3. Click **Click to view the community plugins.**
+4. Click the **+** in the _os-qemu-guest-agent_ package
+5. Navigate to Services | QEMU Guest Agent | Settings
+6. Tick _Enable Service_
+7. Click **Apply**
+
+The Qemu guest agent is now installed and enabled.
 
 # Closing Notes
 

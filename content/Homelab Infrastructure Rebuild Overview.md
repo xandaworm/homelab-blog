@@ -1,7 +1,7 @@
 ---
 publish: true
 created: 2026-11-02T23:28:24.848Z
-modified: 2026-11-12T00:38:19.343Z
+modified: 2026-11-24T22:21:27.606Z
 tags:
   - homelab
   - rebuild
@@ -15,3 +15,4 @@ In the coming weeks I'll be sharing my knowledge (old and new) over topics like 
 
 1. [[Migrating to Proxmox]]
 2. [[OPNsense Firewall Deployment, Configuration, and Segmentation with Proxmox]]
+3. [[Debian VM Deployment with Proxmox]]

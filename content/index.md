@@ -2,7 +2,7 @@
 publish: true
 title: Welcome!
 created: 2026-10-28T23:24:19.526Z
-modified: 2026-11-23T23:30:56.753Z
+modified: 2026-11-24T22:24:33.536Z
 ---
 
 Welcome to my blog! Here I'll be posting notes from building, breaking, and fixing my homelab along with other technical projects: video game console repair and restoration, tinkering, IoT, study, and more.
@@ -56,7 +56,7 @@ A list of tools I use or have used. # links are tag pages, which will provide a 
 
 #### Operating Systems
 
-- [Debian](https://www.debian.org/) -  Base OS for my VMs
+- [Debian](https://www.debian.org/) -  Base OS for my VMs #debian
 - [Ubuntu](https://ubuntu.com/) - OS for my retired singular Docker host
 - [Linux Mint](https://linuxmint.com/) - My choice for Desktop Linux
 - [Kali Linux](https://www.kali.org/) - Pen testing distro I use for testing my own network and learning
